@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-rose-50/30">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraSkin - Cosmética & Cuidado Facial Personalizado</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rosebrand: {
+                            50: '#fdf2f4',
+                            100: '#fce7eb',
+                            200: '#f9d2dc',
+                            300: '#f4adc0',
+                            400: '#ec7c9a',
+                            500: '#e15377',
+                            600: '#cc355b',
+                            700: '#aa2648',
+                            800: '#8f233f',
+                            900: '#792138',
+                        },
+                        sand: {
+                            50: '#fdfbf7',
+                            100: '#f7f2ea',
+                            200: '#eedfcc',
+                            300: '#e2c8a7',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Modern scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fdf2f4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f4adc0;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ec7c9a;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="h-full text-slate-800 flex flex-col font-sans antialiased selection:bg-rosebrand-200">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-rosebrand-600 text-white text-xs text-center py-2 px-4 font-medium tracking-wide">
+        ✨ Envío gratis en compras mayores a $899 MXN | Consulta a nuestra IA Experta en Piel
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-30 glass-panel border-b border-rose-100 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-rosebrand-100 flex items-center justify-center text-rosebrand-600 shadow-sm">
+                    <i class="fa-solid font-serif text-xl font-bold">A</i>
+                </div>
+                <div>
+                    <span class="font-serif text-2xl font-semibold tracking-tight text-slate-900">AuraSkin</span>
+                    <span class="block text-[10px] text-rosebrand-600 tracking-widest uppercase font-semibold">Dermocosmetica</span>
+                </div>
+            </div>
+
+            <!-- Search & Filters Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-md mx-8 relative">
+                <input type="text" id="search-input" oninput="filterProducts()" placeholder="Buscar limpiadores, serums, tónicos..." 
+                       class="w-full pl-10 pr-4 py-2 text-sm bg-white border border-rose-200 rounded-full focus:outline-none focus:ring-2 focus:ring-rosebrand-400 focus:border-transparent transition">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-rose-400 text-sm"></i>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="flex items-center space-x-3 sm:space-x-4">
+                <!-- AI Assistant Quick Trigger -->
+                <button onclick="toggleChatbot(true)" class="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-full bg-rosebrand-100 hover:bg-rosebrand-200 text-rosebrand-800 text-xs sm:text-sm font-medium transition shadow-sm border border-rosebrand-200">
+                    <i class="fa-solid fa-sparkles text-rosebrand-600 animate-pulse"></i>
+                    <span>Test de Piel IA</span>
+                </button>
+
+                <!-- Shopping Cart Trigger -->
+                <button onclick="toggleCartModal(true)" class="relative p-2.5 rounded-full hover:bg-rose-100/60 text-slate-700 transition">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                    <span id="cart-count-badge" class="absolute top-0 right-0 bg-rosebrand-600 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center hidden border-2 border-white">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Search Bar -->
+        <div class="px-4 pb-3 md:hidden">
+            <div class="relative">
+                <input type="text" id="search-input-mobile" oninput="filterProductsMobile()" placeholder="Buscar productos de cuidado facial..." 
+                       class="w-full pl-10 pr-4 py-2 text-sm bg-white border border-rose-200 rounded-full focus:outline-none focus:ring-2 focus:ring-rosebrand-400">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-rose-400 text-sm"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Hero Banner -->
+        <section class="mb-10 rounded-3xl bg-gradient-to-r from-rose-100 via-rose-50 to-sand-100 p-6 sm:p-10 border border-rose-200/60 shadow-sm relative overflow-hidden flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-3/5 z-10 space-y-4">
+                <span class="inline-block px-3 py-1 bg-white/80 rounded-full text-xs font-semibold text-rosebrand-700 tracking-wider uppercase border border-rose-200">
+                    Cuidado Facial de Alta Gama
+                </span>
+                <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl text-slate-900 leading-tight">
+                    Descubre la rutina perfecta para la salud de tu piel.
+                </h1>
+                <p class="text-slate-600 text-sm sm:text-base max-w-lg">
+                    Productos formulados clínicamente con ingredientes botánicos y dermocosméticos. ¿No sabes por dónde empezar? Realiza nuestro test guiado por Inteligencia Artificial.
+                </p>
+                <div class="pt-2 flex flex-wrap gap-3">
+                    <button onclick="toggleChatbot(true)" class="px-6 py-3 rounded-full bg-rosebrand-600 hover:bg-rosebrand-700 text-white font-medium text-sm transition shadow-lg shadow-rosebrand-600/20 flex items-center space-x-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Iniciar Test de Piel</span>
+                    </button>
+                    <a href="#catalogo" class="px-6 py-3 rounded-full bg-white hover:bg-slate-50 text-slate-800 font-medium text-sm transition border border-rose-200 shadow-sm">
+                        Ver Catálogo Completo
+                    </a>
+                </div>
+            </div>
+            <div class="mt-6 md:mt-0 md:w-2/5 flex justify-center relative">
+                <div class="w-64 h-64 sm:w-72 sm:h-72 rounded-full overflow-hidden border-4 border-white shadow-xl relative z-10">
+                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80" alt="Skincare routine" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-rosebrand-200/50 rounded-full blur-2xl"></div>
+            </div>
+        </section>
+
+        <!-- Catalog Section -->
+        <section id="catalogo" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-rose-100 pb-4">
+                <div>
+                    <h2 class="font-serif text-2xl sm:text-3xl font-semibold text-slate-900">Catálogo Dermocosmético</h2>
+                    <p class="text-slate-500 text-xs sm:text-sm">Explora nuestros 15 productos estrella formulados para cada necesidad.</p>
+                </div>
+
+                <!-- Category Pills Filter -->
+                <div class="flex items-center space-x-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none" id="category-filters">
+                    <button onclick="filterCategory('all')" class="category-btn active px-4 py-1.5 rounded-full text-xs font-medium bg-rosebrand-600 text-white transition whitespace-nowrap">
+                        Todos
+                    </button>
+                    <button onclick="filterCategory('Limpiador')" class="category-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white text-slate-600 hover:bg-rose-100 border border-rose-200 transition whitespace-nowrap">
+                        Limpiadores
+                    </button>
+                    <button onclick="filterCategory('Serum')" class="category-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white text-slate-600 hover:bg-rose-100 border border-rose-200 transition whitespace-nowrap">
+                        Serums
+                    </button>
+                    <button onclick="filterCategory('Hidratante')" class="category-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white text-slate-600 hover:bg-rose-100 border border-rose-200 transition whitespace-nowrap">
+                        Hidratantes
+                    </button>
+                    <button onclick="filterCategory('Protector Solar')" class="category-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white text-slate-600 hover:bg-rose-100 border border-rose-200 transition whitespace-nowrap">
+                        Solares
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Grid Container -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Products dynamically rendered here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Chatbot Toggle Button (Mobile & Desktop) -->
+    <div class="fixed bottom-6 right-6 z-40">
+        <button onclick="toggleChatbot(true)" class="relative group bg-slate-900 hover:bg-rosebrand-600 text-white p-4 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center transform hover:scale-105 border-2 border-white">
+            <i class="fa-solid fa-sparkles text-xl text-rosebrand-300 group-hover:text-white transition"></i>
+            <span class="absolute -top-1 -right-1 flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rosebrand-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-rosebrand-500"></span>
+            </span>
+        </button>
+    </div>
+
+    <!-- AI Chatbot Drawer / Modal Overlay -->
+    <div id="chatbot-modal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden transition-opacity">
+        <div class="fixed inset-y-0 right-0 w-full sm:w-[480px] bg-white shadow-2xl flex flex-col h-full border-l border-rose-100">
+            <!-- Chat Header -->
+            <div class="p-4 bg-gradient-to-r from-rosebrand-600 to-rosebrand-700 text-white flex items-center justify-between shadow-md">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-white">
+                        <i class="fa-solid fa-robot text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-sm leading-tight">Asistente Dermatológico AuraIA</h3>
+                        <span class="text-[11px] text-rose-200 flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>
+                            Asesor en línea
+                        </span>
+                    </div>
+                </div>
+                <button onclick="toggleChatbot(false)" class="text-white/80 hover:text-white p-2 rounded-lg text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Chat Legal Notice Warning -->
+            <div class="bg-amber-50 border-b border-amber-200 p-3 text-[11px] text-amber-800 flex items-start space-x-2">
+                <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5 text-xs shrink-0"></i>
+                <p>
+                    <strong>Aviso Legal Importante:</strong> Este chatbot es una herramienta de apoyo e información para la recomendación de productos cosméticos y no sustituye la consulta ni la valoración de un dermatólogo profesional.
+                </p>
+            </div>
+
+            <!-- Quick Action Toolbar -->
+            <div class="px-3 py-2 bg-rose-50/60 border-b border-rose-100 flex items-center justify-between text-xs">
+                <span class="text-slate-500 font-medium">Herramientas:</span>
+                <div class="flex space-x-2">
+                    <button onclick="startSkinTest()" class="px-2.5 py-1 bg-white hover:bg-rose-100 text-rosebrand-700 rounded-full border border-rose-200 font-medium transition shadow-xs flex items-center space-x-1">
+                        <i class="fa-solid fa-clipboard-question text-rosebrand-500"></i>
+                        <span>Test de Piel</span>
+                    </button>
+                    <button onclick="promptBudgetSearch()" class="px-2.5 py-1 bg-white hover:bg-rose-100 text-slate-700 rounded-full border border-rose-200 font-medium transition shadow-xs flex items-center space-x-1">
+                        <i class="fa-solid fa-wallet text-slate-500"></i>
+                        <span>Filtrar Presupuesto</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Scrollable History Area -->
+            <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-4 bg-slate-50/50">
+                <!-- Initial Bot Message -->
+                <div class="flex space-x-2.5">
+                    <div class="w-7 h-7 rounded-full bg-rosebrand-100 text-rosebrand-600 flex items-center justify-center shrink-0 text-xs">
+                        <i class="fa-solid fa-sparkles"></i>
+                    </div>
+                    <div class="bg-white border border-rose-100 p-3.5 rounded-2xl rounded-tl-none shadow-xs text-xs text-slate-700 max-w-[85%] space-y-2">
+                        <p>¡Hola! 👋 Soy <strong>AuraIA</strong>, tu asesora de cosmética facial.</p>
+                        <p>¿No estás segura de qué productos necesita tu piel? Te sugiero realizar nuestro <strong>Test de Piel Interactivo</strong> de 4 preguntas rápidas.</p>
+                        <div class="pt-1">
+                            <button onclick="startSkinTest()" class="w-full py-2 bg-rosebrand-600 hover:bg-rosebrand-700 text-white rounded-xl font-medium transition text-center shadow-xs">
+                                🧪 Iniciar Test de Tipo de Piel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Interactive Option Buttons Area (When applicable) -->
+            <div id="chat-interactive-container" class="px-4 py-2 bg-white border-t border-rose-100 hidden">
+                <!-- Interactive options rendered dynamically -->
+            </div>
+
+            <!-- Chat Input Form -->
+            <div class="p-3 bg-white border-t border-slate-100 flex items-center space-x-2">
+                <input type="text" id="chat-input" onkeydown="if(event.key === 'Enter') sendChatMessage()" 
+                       placeholder="Escribe tu consulta o presupuesto máximo..." 
+                       class="flex-grow px-4 py-2.5 text-xs sm:text-sm bg-slate-100 border border-slate-200 rounded-full focus:outline-none focus:ring-2 focus:ring-rosebrand-400">
+                <button onclick="sendChatMessage()" class="w-10 h-10 bg-rosebrand-600 hover:bg-rosebrand-700 text-white rounded-full flex items-center justify-center transition shrink-0 shadow-sm">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Modal Overlay -->
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden transition-opacity">
+        <div class="fixed inset-y-0 right-0 w-full sm:w-[420px] bg-white shadow-2xl flex flex-col h-full border-l border-rose-100">
+            <!-- Header -->
+            <div class="p-4 border-b border-rose-100 flex items-center justify-between bg-rose-50/50">
+                <h3 class="font-serif text-lg font-semibold text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping text-rosebrand-600"></i>
+                    Tu Carrito de Compras
+                </h3>
+                <button onclick="toggleCartModal(false)" class="text-slate-400 hover:text-slate-600 p-2 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Items Container -->
+            <div id="cart-items-container" class="flex-grow p-4 overflow-y-auto space-y-3">
+                <!-- Cart items populated dynamically -->
+            </div>
+
+            <!-- Footer Summary -->
+            <div class="p-4 border-t border-rose-100 bg-white space-y-3">
+                <div class="flex justify-between text-sm text-slate-600">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">$0.00 MXN</span>
+                </div>
+                <div class="flex justify-between text-sm text-slate-600">
+                    <span>Envío</span>
+                    <span id="cart-shipping" class="text-emerald-600 font-medium">Gratis</span>
+                </div>
+                <div class="flex justify-between text-base font-semibold text-slate-900 pt-2 border-t border-slate-100">
+                    <span>Total Estimado</span>
+                    <span id="cart-total" class="text-rosebrand-700 font-bold">$0.00 MXN</span>
+                </div>
+
+                <button id="checkout-btn" onclick="openCheckoutModal()" class="w-full py-3 bg-rosebrand-600 hover:bg-rosebrand-700 text-white font-medium rounded-xl shadow-lg shadow-rosebrand-600/20 transition flex items-center justify-center space-x-2">
+                    <span>Proceder al Pago</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Checkout & Payment Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden overflow-y-auto flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full shadow-2xl border border-rose-100 overflow-hidden my-8">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-rosebrand-600 to-rosebrand-700 text-white p-6 flex items-center justify-between">
+                <div>
+                    <h3 class="font-serif text-xl font-semibold">Finalizar Pedido</h3>
+                    <p class="text-xs text-rose-100 mt-0.5">Ingresa tus datos de envío y pago para completar la compra.</p>
+                </div>
+                <button onclick="closeCheckoutModal()" class="text-white/80 hover:text-white p-2 text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Checkout Form -->
+            <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)" class="p-6 space-y-6">
+                <!-- Section 1: Contact & Personal Info -->
+                <div class="space-y-4">
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-rosebrand-600 border-b border-rose-100 pb-1">
+                        1. Información de Contacto
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Nombre Completo *</label>
+                            <input type="text" required id="checkout-fullname" placeholder="Ej. Ana María García" 
+                                   class="w-full px-3 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rosebrand-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Correo Electrónico *</label>
+                            <input type="email" required id="checkout-email" placeholder="ana@ejemplo.com" 
+                                   class="w-full px-3 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rosebrand-400">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Teléfono de Contacto (WhatsApp) *</label>
+                            <input type="tel" required id="checkout-phone" placeholder="Ej. 55 1234 5678" 
+                                   class="w-full px-3 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rosebrand-400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Shipping Address -->
+                <div class="space-y-4">
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-rosebrand-600 border-b border-rose-100 pb-1">
+                        2. Dirección de Envío
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Calle, Número exterior e interior *</label>
+                            <input type="text" required id="checkout-street" placeholder="Av. Insurgentes Sur 123, Apt 4B" 
+                                   class="w-full px-3 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rosebrand-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Colonia / Barriada *</label>
+                            <input type="text" required id="checkout-colony" placeholder="Roma Norte" 
+                                   class="w-full px-3 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rosebrand-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Código Postal *</label>
+                            <input type="text" required id="checkout-zip" placeholder="06700" 
+                                   class="w-full px-3 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rosebrand-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Ciudad / Municipio *</label>
+                            <input type="text" required id="checkout-city" placeholder="Ciudad de México" 
+                                   class="w-full px-3 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rosebrand-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Estado *</label>
+                            <input type="text" required id="checkout-state" placeholder="CDMX" 
+                                   class="w-full px-3 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rosebrand-400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Payment Method -->
+                <div class="space-y-4">
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-rosebrand-600 border-b border-rose-100 pb-1">
+                        3. Método de Pago
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center space-x-2 cursor-pointer hover:border-rosebrand-400 transition bg-slate-50/50">
+                            <input type="radio" name="paymentMethod" value="Tarjeta de Crédito/Débito" checked class="text-rosebrand-600 focus:ring-rosebrand-400">
+                            <span class="text-xs font-medium text-slate-700"><i class="fa-solid fa-credit-card mr-1.5 text-rosebrand-500"></i>Tarjeta</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center space-x-2 cursor-pointer hover:border-rosebrand-400 transition bg-slate-50/50">
+                            <input type="radio" name="paymentMethod" value="Transferencia SPEI" class="text-rosebrand-600 focus:ring-rosebrand-400">
+                            <span class="text-xs font-medium text-slate-700"><i class="fa-solid fa-building-columns mr-1.5 text-blue-500"></i>Transferencia</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center space-x-2 cursor-pointer hover:border-rosebrand-400 transition bg-slate-50/50">
+                            <input type="radio" name="paymentMethod" value="PayPal" class="text-rosebrand-600 focus:ring-rosebrand-400">
+                            <span class="text-xs font-medium text-slate-700"><i class="fa-brands fa-paypal mr-1.5 text-indigo-600"></i>PayPal</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Summary Box inside form -->
+                <div class="bg-rose-50/60 p-4 rounded-2xl border border-rose-100 space-y-1.5">
+                    <div class="flex justify-between text-xs text-slate-600">
+                        <span>Total a Pagar:</span>
+                        <span id="checkout-total-display" class="font-bold text-rosebrand-700 text-sm">$0.00 MXN</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">Al confirmar la compra, recibirás un correo de confirmación y el pedido se registrará en la base de datos de la tienda.</p>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex items-center space-x-3 pt-2">
+                    <button type="button" onclick="closeCheckoutModal()" class="w-1/3 py-3 border border-slate-200 text-slate-600 font-medium text-xs sm:text-sm rounded-xl hover:bg-slate-50 transition">
+                        Cancelar
+                    </button>
+                    <button type="submit" id="submit-order-btn" class="w-2/3 py-3 bg-rosebrand-600 hover:bg-rosebrand-700 text-white font-medium text-xs sm:text-sm rounded-xl shadow-lg shadow-rosebrand-600/20 transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-lock text-xs"></i>
+                        <span>Confirmar y Pagar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Success Modal Confirmation -->
+    <div id="success-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl border border-rose-100">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 class="font-serif text-2xl font-semibold text-slate-900">¡Pedido Confirmado!</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+                Muchas gracias por tu compra. Tu orden ha sido registrada exitosamente en nuestro sistema con la clave <strong id="order-id-display" class="text-rosebrand-700">#00000</strong>.
+            </p>
+            <div class="bg-slate-50 p-3 rounded-2xl text-left text-xs text-slate-600 space-y-1">
+                <div><strong>Cliente:</strong> <span id="success-name">---</span></div>
+                <div><strong>Envío a:</strong> <span id="success-address">---</span></div>
+                <div><strong>Método de Pago:</strong> <span id="success-payment">---</span></div>
+            </div>
+            <button onclick="closeSuccessModal()" class="w-full py-3 bg-rosebrand-600 hover:bg-rosebrand-700 text-white font-medium rounded-xl text-xs sm:text-sm transition">
+                Continuar Comprando
+            </button>
+        </div>
+    </div>
+
+    <!-- FIREBASE MODULE & APPLICATION LOGIC -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global Firebase Configuration Setup
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+            apiKey: "demo-api-key",
+            authDomain: "demo-app.firebaseapp.com",
+            projectId: "demo-app",
+            storageBucket: "demo-app.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:demo"
+        };
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'auraskin-store-v1';
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+
+        // Initialize Anonymous or Token Authentication
+        async function initAuth() {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (err) {
+                console.warn("Autenticación Firebase en modo fallback local:", err);
+            }
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+        });
+
+        initAuth();
+
+        // ----------------------------------------------------
+        // 1. PRODUCTS DATABASE (15 Detailed Skincare Items)
+        // ----------------------------------------------------
+        const products = [
+            {
+                id: 'prod-01',
+                name: 'Limpiador Facial de Caléndula & Manzanilla',
+                category: 'Limpiador',
+                priceMXN: 380,
+                stock: 25,
+                skinTypes: ['Sensible', 'Normal', 'Seca'],
+                description: 'Gel limpiador suave de ph neutro que remueve impurezas y maquillaje sin resecar la barrera cutánea.',
+                image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-02',
+                name: 'Espuma Purificante Ácido Salicílico 2%',
+                category: 'Limpiador',
+                priceMXN: 320,
+                stock: 18,
+                skinTypes: ['Grasa', 'Mixta'],
+                description: 'Limpiador profundo en espuma para pieles con tendencia a acné, puntos negros y exceso de sebo.',
+                image: 'https://images.unsplash.com/photo-1608248597262-8382d33458bf?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-03',
+                name: 'Tónico Calmante de Agua de Rosas & Centella',
+                category: 'Tónico',
+                priceMXN: 290,
+                stock: 30,
+                skinTypes: ['Sensible', 'Seca', 'Normal', 'Mixta'],
+                description: 'Reequilibra el pH facial inmediatamente después de la limpieza. Reduce la irritación y rojeces.',
+                image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-04',
+                name: 'Serum Ácido Hialurónico Triple Pesomolecular',
+                category: 'Serum',
+                priceMXN: 540,
+                stock: 15,
+                skinTypes: ['Grasa', 'Seca', 'Mixta', 'Sensible', 'Normal'],
+                description: 'Serum de hidratación profunda multicapa. Rellena finas líneas de expresión y da firmeza al rostro.',
+                image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-05',
+                name: 'Serum Niacinamida 10% + Zinc 1%',
+                category: 'Serum',
+                priceMXN: 410,
+                stock: 22,
+                skinTypes: ['Grasa', 'Mixta'],
+                description: 'Control de sebo, minimiza poros dilatados y disminuye manchas causadas por acné reciente.',
+                image: 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-06',
+                name: 'Serum Vitamina C 15% Antiox & Luminosidad',
+                category: 'Serum',
+                priceMXN: 590,
+                stock: 12,
+                skinTypes: ['Normal', 'Seca', 'Mixta'],
+                description: 'Potente antioxidante que unifica el tono de la piel, aporta brillo natural y protege del estrés ambiental.',
+                image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-07',
+                name: 'Crema Hidratante Ceramid Shield Repair',
+                category: 'Hidratante',
+                priceMXN: 480,
+                stock: 20,
+                skinTypes: ['Seca', 'Sensible'],
+                description: 'Crema rica en ceramidas y fitosfingosina para restaurar la barrera cutánea muy seca o deshidratada.',
+                image: 'https://images.unsplash.com/photo-1580870069867-74c57ee1bb07?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-08',
+                name: 'Gel Hidratante Ultraligero Aloe & Té Verde',
+                category: 'Hidratante',
+                priceMXN: 360,
+                stock: 28,
+                skinTypes: ['Grasa', 'Mixta'],
+                description: 'Hidratante en gel de rápida absorción con acabado mate. Sensación refrescante sin obstruir poros.',
+                image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-09',
+                name: 'Protector Solar Fluido Invisible FPS 50+',
+                category: 'Protector Solar',
+                priceMXN: 450,
+                stock: 40,
+                skinTypes: ['Grasa', 'Seca', 'Mixta', 'Sensible', 'Normal'],
+                description: 'Protección alta espectro UVA/UVB sin residuo blanco ni efecto graso. Apto para uso diario previo al maquillaje.',
+                image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-10',
+                name: 'Contorno de Ojos Cafeína & Peptidos',
+                category: 'Contorno Ojos',
+                priceMXN: 390,
+                stock: 14,
+                skinTypes: ['Grasa', 'Seca', 'Mixta', 'Sensible', 'Normal'],
+                description: 'Desinflama ojeras oscuras y bolsas. Estimula la microcirculación en el área delicada de los ojos.',
+                image: 'https://images.unsplash.com/photo-1512290900673-200234a5d3f8?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-11',
+                name: 'Mascarilla Nocturna Regeneradora de Escualano',
+                category: 'Mascarilla',
+                priceMXN: 460,
+                stock: 10,
+                skinTypes: ['Seca', 'Normal'],
+                description: 'Tratamiento nocturno intensivo que nutre mientras duermes. Piel suave y luminosa al despertar.',
+                image: 'https://images.unsplash.com/photo-1567928269937-ae146e45b428?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-12',
+                name: 'Exfoliante Líquido AHA 7% + BHA 2%',
+                category: 'Exfoliante',
+                priceMXN: 430,
+                stock: 16,
+                skinTypes: ['Grasa', 'Mixta'],
+                description: 'Exfoliante químico suave que renueva la textura de la piel, suaviza asperezas y descongestiona poros.',
+                image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-13',
+                name: 'Bálsamo Desmaquillante Nutritivo de Karité',
+                category: 'Limpiador',
+                priceMXN: 350,
+                stock: 25,
+                skinTypes: ['Seca', 'Sensible', 'Normal', 'Mixta'],
+                description: 'Primer paso de la doble limpieza. Disuelve eficazmente maquillaje a prueba de agua y filtros solares.',
+                image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-14',
+                name: 'Serum Retinol Renewal 0.3% Encapsulado',
+                category: 'Serum',
+                priceMXN: 620,
+                stock: 9,
+                skinTypes: ['Normal', 'Seca', 'Mixta'],
+                description: 'Estimula la producción de colágeno y aceleración celular para prevenir y mitigar arrugas.',
+                image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'prod-15',
+                name: 'Bruma Facial Refrescante Ácido Hipocloroso',
+                category: 'Tónico',
+                priceMXN: 270,
+                stock: 35,
+                skinTypes: ['Sensible', 'Grasa', 'Mixta'],
+                description: 'Spray purificante anti-inflamatorio perfecto para calmar la piel desinfectándola suavemente durante el día.',
+                image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80'
+            }
+        ];
+
+        // ----------------------------------------------------
+        // 2. SHOPPING CART STATE & LOGIC
+        // ----------------------------------------------------
+        let cart = [];
+
+        window.addToCart = function(productId, qty = 1) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingIndex = cart.findIndex(item => item.id === productId);
+            if (existingIndex > -1) {
+                if (cart[existingIndex].qty + qty <= product.stock) {
+                    cart[existingIndex].qty += qty;
+                } else {
+                    alert(`Stock máximo alcanzado para ${product.name}`);
+                    return;
+                }
+            } else {
+                cart.push({ ...product, qty });
+            }
+
+            updateCartUI();
+            
+            // Temporary feedback Toast
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-20 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs px-4 py-2 rounded-full shadow-lg z-50 animate-bounce';
+            toast.innerText = `✓ ${product.name} agregado al carrito`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        };
+
+        window.updateQuantity = function(productId, change) {
+            const index = cart.findIndex(item => item.id === productId);
+            if (index > -1) {
+                cart[index].qty += change;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+            }
+            updateCartUI();
+        };
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartBadge = document.getElementById('cart-count-badge');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const totalEl = document.getElementById('cart-total');
+            const checkoutTotalDisplay = document.getElementById('checkout-total-display');
+
+            const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+            const subtotal = cart.reduce((acc, item) => acc + (item.priceMXN * item.qty), 0);
+
+            // Badge Update
+            if (totalItems > 0) {
+                cartBadge.innerText = totalItems;
+                cartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+
+            // Render Cart Items
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-12 text-slate-400 space-y-3">
+                        <i class="fa-solid fa-basket-shopping text-4xl text-rose-200"></i>
+                        <p class="text-xs">Tu carrito está vacío actualmente.</p>
+                    </div>
+                `;
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="flex items-center space-x-3 bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                        <img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-cover rounded-xl shrink-0">
+                        <div class="flex-grow min-w-0">
+                            <h4 class="text-xs font-semibold text-slate-800 truncate">${item.name}</h4>
+                            <p class="text-xs text-rosebrand-700 font-bold">$${item.priceMXN} MXN</p>
+                            <div class="flex items-center space-x-2 mt-1">
+                                <button onclick="updateQuantity('${item.id}', -1)" class="w-5 h-5 rounded-full bg-white border border-slate-200 flex items-center justify-center text-xs text-slate-600 hover:bg-slate-100">-</button>
+                                <span class="text-xs font-medium text-slate-800">${item.qty}</span>
+                                <button onclick="updateQuantity('${item.id}', 1)" class="w-5 h-5 rounded-full bg-white border border-slate-200 flex items-center justify-center text-xs text-slate-600 hover:bg-slate-100">+</button>
+                            </div>
+                        </div>
+                        <button onclick="updateQuantity('${item.id}', -${item.qty})" class="text-slate-400 hover:text-rose-500 p-1 text-xs">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            subtotalEl.innerText = `$${subtotal.toLocaleString()} MXN`;
+            totalEl.innerText = `$${subtotal.toLocaleString()} MXN`;
+            if (checkoutTotalDisplay) checkoutTotalDisplay.innerText = `$${subtotal.toLocaleString()} MXN`;
+        }
+
+        window.toggleCartModal = function(show) {
+            const modal = document.getElementById('cart-modal');
+            if (show) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        };
+
+        // ----------------------------------------------------
+        // 3. CHECKOUT & ORDER SUBMISSION (Firebase Integration)
+        // ----------------------------------------------------
+        window.openCheckoutModal = function() {
+            if (cart.length === 0) {
+                alert("Agrega al menos un producto al carrito para continuar.");
+                return;
+            }
+            toggleCartModal(false);
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        };
+
+        window.closeCheckoutModal = function() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        };
+
+        window.handleCheckoutSubmit = async function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submit-order-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> <span>Guardando Pedido...</span>`;
+
+            // Collect form data
+            const fullname = document.getElementById('checkout-fullname').value;
+            const email = document.getElementById('checkout-email').value;
+            const phone = document.getElementById('checkout-phone').value;
+            const street = document.getElementById('checkout-street').value;
+            const colony = document.getElementById('checkout-colony').value;
+            const zip = document.getElementById('checkout-zip').value;
+            const city = document.getElementById('checkout-city').value;
+            const state = document.getElementById('checkout-state').value;
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+            const totalMXN = cart.reduce((acc, item) => acc + (item.priceMXN * item.qty), 0);
+
+            const orderData = {
+                customer: { fullname, email, phone },
+                shippingAddress: { street, colony, zip, city, state },
+                paymentMethod,
+                items: cart.map(i => ({ id: i.id, name: i.name, qty: i.qty, priceMXN: i.priceMXN })),
+                totalMXN,
+                status: 'Confirmado',
+                createdAt: serverTimestamp()
+            };
+
+            let orderRefId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
+
+            try {
+                // Save Order to Firestore following rule 1: /artifacts/{appId}/public/data/orders
+                if (currentUser) {
+                    const ordersCol = collection(db, 'artifacts', appId, 'public', 'data', 'orders');
+                    const docRef = await addDoc(ordersCol, orderData);
+                    orderRefId = docRef.id.substring(0, 8).toUpperCase();
+                }
+            } catch (err) {
+                console.warn("Firestore save warning (Continuando en modo fallback):", err);
+            }
+
+            // UI Feedback
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<i class="fa-solid fa-lock text-xs"></i> <span>Confirmar y Pagar</span>`;
+            closeCheckoutModal();
+
+            // Populate Success Dialog
+            document.getElementById('order-id-display').innerText = `#${orderRefId}`;
+            document.getElementById('success-name').innerText = fullname;
+            document.getElementById('success-address').innerText = `${street}, ${colony}, ${city}`;
+            document.getElementById('success-payment').innerText = paymentMethod;
+
+            document.getElementById('success-modal').classList.remove('hidden');
+
+            // Clear Cart
+            cart = [];
+            updateCartUI();
+        };
+
+        window.closeSuccessModal = function() {
+            document.getElementById('success-modal').classList.add('hidden');
+        };
+
+        // ----------------------------------------------------
+        // 4. RENDERING & FILTERING PRODUCTS
+        // ----------------------------------------------------
+        let activeCategory = 'all';
+
+        function renderProducts(items) {
+            const container = document.getElementById('products-grid');
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass text-3xl text-rose-200 mb-2"></i>
+                        <p class="text-sm">No se encontraron productos que coincidan con la búsqueda.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = items.map(p => `
+                <div class="bg-white rounded-3xl p-4 border border-rose-100 shadow-sm hover:shadow-md transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="relative w-full h-48 rounded-2xl overflow-hidden bg-slate-100 mb-3">
+                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-md text-rosebrand-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                                ${p.category}
+                            </span>
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="font-semibold text-sm text-slate-800 line-clamp-2">${p.name}</h3>
+                            <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">${p.description}</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 mt-2 border-t border-rose-50 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400 block">Precio</span>
+                            <span class="text-base font-bold text-slate-900">$${p.priceMXN} <span class="text-[10px] font-normal text-slate-500">MXN</span></span>
+                        </div>
+                        <button onclick="addToCart('${p.id}')" class="px-3.5 py-2 rounded-xl bg-rosebrand-50 hover:bg-rosebrand-600 text-rosebrand-700 hover:text-white text-xs font-semibold transition flex items-center space-x-1.5 shadow-xs">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <span>Agregar</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.filterCategory = function(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('bg-rosebrand-600', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-600');
+            });
+            event.currentTarget.classList.remove('bg-white', 'text-slate-600');
+            event.currentTarget.classList.add('bg-rosebrand-600', 'text-white');
+
+            filterProducts();
+        };
+
+        window.filterProducts = function() {
+            const query = (document.getElementById('search-input')?.value || '').toLowerCase();
+            const filtered = products.filter(p => {
+                const matchesCat = activeCategory === 'all' || p.category === activeCategory;
+                const matchesQuery = p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query);
+                return matchesCat && matchesQuery;
+            });
+            renderProducts(filtered);
+        };
+
+        window.filterProductsMobile = function() {
+            const query = (document.getElementById('search-input-mobile')?.value || '').toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
+            renderProducts(filtered);
+        };
+
+        // ----------------------------------------------------
+        // 5. ADVANCED AI CHATBOT & INTERACTIVE SKIN TEST
+        // ----------------------------------------------------
+        window.toggleChatbot = function(show) {
+            const modal = document.getElementById('chatbot-modal');
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        };
+
+        let skinTestStep = 0;
+        let skinTestAnswers = {};
+
+        const skinTestQuestions = [
+            {
+                question: "1. ¿Cómo sientes tu piel unas horas después de lavarla?",
+                options: [
+                    { label: "Tirante y con zonas ásperas o descamadas", value: "Seca" },
+                    { label: "Con brillo generalizado y sensación oleosa", value: "Grasa" },
+                    { label: "Brillo solo en zona T (frente/nariz), mejillas normales", value: "Mixta" },
+                    { label: "Se enrojece o arde fácilmente con cualquier producto", value: "Sensible" },
+                    { label: "Equilibrada, cómoda, sin exceso de grasa ni sequedad", value: "Normal" }
+                ]
+            },
+            {
+                question: "2. ¿Con qué frecuencia te aparecen brotes o poros obstruidos?",
+                options: [
+                    { label: "Muy seguido en zona T o barbilla", value: "Grasa" },
+                    { label: "Ocasionalmente en días de estrés o cambios hormonales", value: "Mixta" },
+                    { label: "Casi nunca, mi preocupación es la falta de hidratación", value: "Seca" },
+                    { label: "Rara vez, pero sufro de irritaciones frecuentes", value: "Sensible" }
+                ]
+            },
+            {
+                question: "3. ¿Cuál es tu objetivo principal en tu cuidado facial?",
+                options: [
+                    { label: "Controlar brillo y disminuir poros", value: "ControlSebo" },
+                    { label: "Hidratación profunda y luminosidad", value: "Hidratacion" },
+                    { label: "Calmar rojeces y proteger la barrera cutánea", value: "Calmante" },
+                    { label: "Prevenir líneas de expresión y unificar el tono", value: "Antiaging" }
+                ]
+            }
+        ];
+
+        window.startSkinTest = function() {
+            skinTestStep = 0;
+            skinTestAnswers = {};
+            appendBotMessage("🧪 **Iniciando Test de Tipo de Piel AuraSkin**\nResponde a estas 3 breves preguntas para recomendarte la rutina exacta.");
+            showSkinTestQuestion();
+        };
+
+        function showSkinTestQuestion() {
+            const container = document.getElementById('chat-interactive-container');
+            const q = skinTestQuestions[skinTestStep];
+
+            if (!q) {
+                finishSkinTest();
+                return;
+            }
+
+            appendBotMessage(q.question);
+
+            container.classList.remove('hidden');
+            container.innerHTML = `
+                <div class="space-y-1.5 py-1">
+                    ${q.options.map((opt, idx) => `
+                        <button onclick="answerSkinTest('${opt.value}', '${opt.label}')" class="w-full text-left px-3 py-2 bg-rose-50/70 hover:bg-rose-100 border border-rose-200/80 rounded-xl text-xs font-medium text-slate-700 transition">
+                            ${opt.label}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        window.answerSkinTest = function(val, label) {
+            appendUserMessage(label);
+            skinTestAnswers[`q${skinTestStep}`] = val;
+            skinTestStep++;
+
+            document.getElementById('chat-interactive-container').classList.add('hidden');
+            setTimeout(() => showSkinTestQuestion(), 400);
+        };
+
+        function finishSkinTest() {
+            const determinedType = skinTestAnswers.q0 || 'Normal';
+            appendBotMessage(`✨ **Resultado de tu Test:** Tu tipo de piel predominante es **Piel ${determinedType}**.\n\nA continuación, busco los mejores productos para ti...`);
+
+            // Find matching products
+            const recommended = products.filter(p => p.skinTypes.includes(determinedType)).slice(0, 3);
+
+            setTimeout(() => {
+                recommended.forEach(p => renderBotProductCard(p));
+            }, 600);
+        }
+
+        window.promptBudgetSearch = function() {
+            appendBotMessage("💰 **Búsqueda por Presupuesto**\nPor favor, ingresa tu presupuesto máximo en MXN (ejemplo: *400* o *1000*) en la casilla de abajo.");
+        };
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const query = input.value.trim();
+            if (!query) return;
+
+            appendUserMessage(query);
+            input.value = '';
+
+            // Check if user entered a budget number directly
+            const budgetMatch = query.match(/\$?(\d+)/);
+            if (budgetMatch && (query.toLowerCase().includes('presupuesto') || query.toLowerCase().includes('barato') || query.toLowerCase().includes('maximo') || !isNaN(query))) {
+                const maxBudget = parseInt(budgetMatch[1], 10);
+                handleBudgetFilter(maxBudget);
+                return;
+            }
+
+            // Gemini API Direct Integration Call
+            const systemPrompt = `Eres AuraIA, una consultora virtual experta en dermocosmética y cuidado facial para la tienda AuraSkin.
+            Sigue estrictamente estas reglas:
+            1. IMPORTANTE: Tu objetivo es ayudar a recomendar productos de nuestra tienda.
+            2. Lista de productos disponibles en la tienda: ${JSON.stringify(products.map(p => ({id: p.id, name: p.name, price: p.priceMXN, cat: p.category})))}.
+            3. Responde de forma amable, estética y concisa en español.
+            4. Si el usuario menciona una necesidad o tipo de piel, sugiere de 1 a 3 productos de la lista.`;
+
+            const apiKey = ""; // Canvas runtime environment automatically inserts API key
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: query }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+
+                const data = await response.json();
+                const botText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Lo siento, tuve un problema procesando tu consulta. ¡Intenta nuevamente!";
+                appendBotMessage(botText);
+
+                // Auto match recommended products mentioned in text
+                products.forEach(p => {
+                    if (botText.toLowerCase().includes(p.name.toLowerCase())) {
+                        renderBotProductCard(p);
+                    }
+                });
+
+            } catch (err) {
+                console.warn("API Error, activando fallback inteligente:", err);
+                // Smart fallback for keyword queries
+                const matches = products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()) || p.category.toLowerCase().includes(query.toLowerCase())).slice(0, 2);
+                if (matches.length > 0) {
+                    appendBotMessage("Encontré estas opciones en nuestro catálogo que coinciden con tu consulta:");
+                    matches.forEach(p => renderBotProductCard(p));
+                } else {
+                    appendBotMessage("Disculpa, no encontré un producto exacto para esa consulta. Te invito a usar nuestro **Test de Piel** o ingresar un presupuesto máximo.");
+                }
+            }
+        }
+
+        function handleBudgetFilter(maxAmount) {
+            const affordable = products.filter(p => p.priceMXN <= maxAmount).sort((a, b) => b.priceMXN - a.priceMXN);
+            
+            if (affordable.length > 0) {
+                appendBotMessage(`💡 Encontré **${affordable.length} productos** que se ajustan a tu presupuesto máximo de **$${maxAmount} MXN**:`);
+                affordable.slice(0, 3).forEach(p => renderBotProductCard(p));
+            } else {
+                const cheapest = [...products].sort((a, b) => a.priceMXN - b.priceMXN)[0];
+                appendBotMessage(`No encontré opciones por debajo de $${maxAmount} MXN. Nuestra opción más accesible es **${cheapest.name}** por **$${cheapest.priceMXN} MXN**.`);
+                renderBotProductCard(cheapest);
+            }
+        }
+
+        function appendUserMessage(text) {
+            const container = document.getElementById('chat-messages');
+            const msgHtml = `
+                <div class="flex justify-end">
+                    <div class="bg-rosebrand-600 text-white p-3 rounded-2xl rounded-tr-none text-xs max-w-[80%] shadow-xs">
+                        ${text}
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', msgHtml);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function appendBotMessage(text) {
+            const container = document.getElementById('chat-messages');
+            const formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+            const msgHtml = `
+                <div class="flex space-x-2.5">
+                    <div class="w-7 h-7 rounded-full bg-rosebrand-100 text-rosebrand-600 flex items-center justify-center shrink-0 text-xs">
+                        <i class="fa-solid fa-sparkles"></i>
+                    </div>
+                    <div class="bg-white border border-rose-100 p-3.5 rounded-2xl rounded-tl-none shadow-xs text-xs text-slate-700 max-w-[85%] space-y-1">
+                        ${formatted}
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', msgHtml);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function renderBotProductCard(p) {
+            const container = document.getElementById('chat-messages');
+            const cardHtml = `
+                <div class="ml-9 my-2 bg-white border border-rose-200 rounded-2xl p-3 shadow-sm space-y-2 max-w-[85%]">
+                    <div class="flex items-center space-x-3">
+                        <img src="${p.image}" alt="${p.name}" class="w-12 h-12 object-cover rounded-xl shrink-0">
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-semibold text-slate-800 truncate">${p.name}</h4>
+                            <p class="text-xs font-bold text-rosebrand-700">$${p.priceMXN} MXN</p>
+                        </div>
+                    </div>
+                    <button onclick="addToCart('${p.id}')" class="w-full py-1.5 bg-rosebrand-600 hover:bg-rosebrand-700 text-white rounded-xl text-xs font-medium transition flex items-center justify-center space-x-1">
+                        <i class="fa-solid fa-cart-plus text-[10px]"></i>
+                        <span>Agregar al Carrito Directo</span>
+                    </button>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', cardHtml);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Expose function globally for chat enter key
+        window.sendChatMessage = sendChatMessage;
+
+        // Initialize Catalog View
+        renderProducts(products);
+    </script>
+</body>
+</html>
